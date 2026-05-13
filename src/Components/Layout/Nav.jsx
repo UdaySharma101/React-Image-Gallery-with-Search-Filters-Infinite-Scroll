@@ -12,7 +12,7 @@ export const Nav = () => {
 
                 <h1 className="text-2xl font-bold tracking-wide">
                     <span className="text-[#3B82F6] font-bold tracking-wide">Dev</span>
-                    <span className="text-[##111827] font-bold tracking-wide">Gallery</span>
+                    <span className="text-[#111827] font-bold tracking-wide">Gallery</span>
                 </h1>
 
                 <div className='relative w-1/3'>
@@ -20,21 +20,45 @@ export const Nav = () => {
                     <Search className='hidden sm:block absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black cursor-pointer' size={16} strokeWidth={2} />
 
                 </div>
-                <button onClick={toggle} className='relative md:hidden font-semibold cursor-pointer text-gray-600 hover:text-black   '>
-                    {open ? <div className="md:hidden flex flex-col items-end justify-center  gap-4 mt-4">
-                        <X onClick={() => setOpen(false)} strokeWidth={1.75}  />
-                        <div className='absolute top-20 flex flex-col shadow-lg h-30 px-13 py-5  gap-2 border-2  transform transition-transform duration-500 ease-in-out'>
-                            <a href="#">Categories</a>
-                            <a href="#">Favorites</a>
-                            <a href="#">About</a>
-                        </div> 
+                <div className="relative md:hidden">
+                    <button
+                        onClick={toggle}
+                        className="font-semibold cursor-pointer text-gray-600 hover:text-black transition"
+                    >
+                        {open ? <X strokeWidth={1.75} /> : <Menu strokeWidth={1.75} />}
+                    </button>
+
+                    <div className={`absolute right-0 top-12 z-50 w-52 rounded-2xl border border-gray-100 bg-white/95 backdrop-blur-md shadow-xl shadow-black/10 p-2 transition-all duration-300 ease-in-out origin-top-right
+                       ${open
+                            ? "opacity-100 translate-y-0 scale-100"
+                            : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+                        }`}>
+                        <a
+                            className="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-black transition"
+                            href="#"
+                        >
+                            Categories
+                        </a>
+
+                        <a
+                            className="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-black transition"
+                            href="#"
+                        >
+                            Favorites
+                        </a>
+
+                        <a
+                            className="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-black transition"
+                            href="#"
+                        >
+                            About
+                        </a>
                     </div>
-                        : <Menu className='hover:text-black' strokeWidth={1.75} />}
-                </button>
+                </div>
 
                 <ul className='hidden md:flex items-center justify-end  gap-10'>
                     <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>Categories</li>
-                    <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>Favroutes</li>
+                    <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>Favorites</li>
                     <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>About</li>
                 </ul>
 
