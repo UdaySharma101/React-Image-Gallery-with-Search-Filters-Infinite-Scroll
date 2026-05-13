@@ -1,11 +1,13 @@
 
 import { Nav } from './Components/Layout/Nav'
+import Home from './Pages/Home';
 
 const App = () => {
 
   return (
     <>
     <Nav/>
+    <Home/>
     </>
   )
 }
