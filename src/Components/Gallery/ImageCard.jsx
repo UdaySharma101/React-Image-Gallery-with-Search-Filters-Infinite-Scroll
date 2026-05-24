@@ -1,30 +1,31 @@
+import { Download, Save } from "lucide-react";
 
-
-
-const ImageCard = ({images}) => {
-
+const ImageCard = ({ image }) => {
   return (
-  <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-5 p-6">
-  
-  {images.map((item) => (
-    
-    <div
-      key={item.id}
-      className="break-inside-avoid mb-4 overflow rounded-xl"
-    >
-      
+    <div className="group relative overflow-hidden rounded-2xl shadow-md bg-gray-100 cursor-pointer">
       <img
-        className="w-full h-auto rounded-xl"
-        src={item.src.large}
-        alt={item.alt}
+        src={image.src.large}
+        alt={image.alt || "Gallery image"}
+        className="w-full  object-cover transition-transform duration-500 group-hover:scale-105 "
       />
 
+      <div className="absolute inset-0 flex flex-col justify-between bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 p-4">
+        <div className="flex justify-end gap-2">
+          <button className="rounded-full bg-white/90 p-2 text-gray-800 hover:bg-white transition">
+            <Save size={18} />
+          </button>
+
+          <button className="rounded-full bg-white/90 p-2 text-gray-800 hover:bg-white transition">
+            <Download size={18} />
+          </button>
+        </div>
+
+        <h3 className="text-white font-semibold text-sm">
+          {image.photographer}
+        </h3>
+      </div>
     </div>
+  );
+};
 
-  ))}
-
-</div>
-  )
-}
-
-export default ImageCard
+export default ImageCard;

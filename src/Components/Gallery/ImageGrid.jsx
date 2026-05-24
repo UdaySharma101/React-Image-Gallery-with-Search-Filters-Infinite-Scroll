@@ -1,27 +1,18 @@
 import React from 'react'
 import ImageCard from '../Gallery/ImageCard'
 
-const ImageGrid = ({images}) => {
+const ImageGrid = ({ images }) => {
   return (
-    <div  className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-5 p-6">
-       {images.map((item) => (
-    
-     <div
-      key={item.id}
-      className="break-inside-avoid mb-4 overflow rounded-xl"
-    >
+    <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-5 p-6">
       
-      <img
-        className="w-full h-auto rounded-xl cursor-pointer"
-        src={item.src.large}
-        alt={item.alt}
-      />
+      {images.map((image) => (
+        
+        <div key={image.id} className="mb-5 break-inside-avoid">
+          <ImageCard image={image} />
+        </div>
 
-    </div>
+      ))}
 
-  ))}
-
-      {/* <ImageCard images={images} /> */}
     </div>
   )
 }
