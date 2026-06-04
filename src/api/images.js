@@ -11,7 +11,7 @@ export const dataFetching = async ()=>{
     );
 
     let data = await response.json();
-        console.log(data.photos);
+        // console.log(data.photos);
 
     return data.photos
 

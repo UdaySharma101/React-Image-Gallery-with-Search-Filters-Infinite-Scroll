@@ -3,6 +3,7 @@ import { Download, Save } from "lucide-react";
 const ImageCard = ({ image }) => {
   return (
     <div className="group relative overflow-hidden rounded-2xl shadow-md bg-gray-100 cursor-pointer">
+      
       <img
         src={image.src.large}
         alt={image.alt || "Gallery image"}

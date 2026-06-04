@@ -7,7 +7,7 @@ export const Nav = () => {
     }
 
     return (
-        <nav className='w-full h-20 bg-white shadow-sm'>
+        <nav className='w-full h-19 bg-white shadow-sm'>
             <div className='max-w-7xl w-full mx-auto px-5 py-3  h-full flex items-center justify-between '>
 
                 <h1 className="text-2xl font-bold tracking-wide">
