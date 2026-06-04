@@ -1,8 +1,8 @@
-
-export const dataFetching = async ()=>{
+export const dataFetching = async (page) => {
   try {
-    let response = await fetch(
-      "https://api.pexels.com/v1/curated?per_page=30",
+
+    const response = await fetch(
+      `https://api.pexels.com/v1/curated?page=${page}&per_page=20`,
       {
         headers: {
           Authorization: import.meta.env.VITE_PEXELS_API,
@@ -10,14 +10,11 @@ export const dataFetching = async ()=>{
       }
     );
 
-    let data = await response.json();
-        // console.log(data.photos);
+    const data = await response.json();
 
-    return data.photos
+    return data.photos;
 
   } catch (error) {
     console.log(error);
   }
-}
-
- 
+};
