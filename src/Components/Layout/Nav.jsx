@@ -15,11 +15,11 @@ export const Nav = () => {
                     <span className="text-[#111827] font-bold tracking-wide">Gallery</span>
                 </h1>
 
-                <div className='relative w-1/3'>
+                {/* <div className='relative w-1/3'>
                     <input type="text" placeholder='Search for free' className='hidden bg-gray-200 sm:block px-12 py-2  w-full max-w-xl rounded-xl md:mx-3  outline-none hover:bg-gray-300 ' />
                     <Search className='hidden sm:block absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black cursor-pointer' size={16} strokeWidth={2} />
 
-                </div>
+                </div> */}
                 <div className="relative md:hidden">
                     <button
                         onClick={toggle}

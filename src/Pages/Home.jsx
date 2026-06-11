@@ -10,8 +10,12 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
+
+
+
   useEffect(() => {
     async function getData() {
+      
       setLoading(true);
 
       const data = await dataFetching(page);
@@ -23,27 +27,37 @@ const Home = () => {
           (img, index, arr) =>
             index === arr.findIndex((item) => item.id === img.id)
         );
-      });
+
+      })
 
       setLoading(false);
+
     }
 
     getData();
   }, [page]);
+-
+
 
   useEffect(() => {
+
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !loading) {
         setPage((prev) => prev + 1);
       }
     });
 
+
     if (loaderRef.current) {
       observer.observe(loaderRef.current);
     }
 
+
     return () => observer.disconnect();
   }, [loading]);
+
+
+
 
   return (
     <div>
