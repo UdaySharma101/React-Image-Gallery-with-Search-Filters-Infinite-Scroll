@@ -1,8 +1,8 @@
-export const dataFetching = async (page) => {
+export const dataFetching = async (category,page) => {
   try {
 
     const response = await fetch(
-      `https://api.pexels.com/v1/curated?page=${page}&per_page=20`,
+      `https://api.pexels.com/v1/search?query=${category}&page=${page}&per_page=20`,
       {
         headers: {
           Authorization: import.meta.env.VITE_PEXELS_API,

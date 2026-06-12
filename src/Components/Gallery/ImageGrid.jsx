@@ -10,7 +10,7 @@ import travel from "../../assets/images/travel.jpg"
 
 
 
-const ImageGrid = ({ images }) => {
+const ImageGrid = ({ images ,category,setCategory}) => {
   const categeories = [
     {
 
@@ -49,12 +49,18 @@ const ImageGrid = ({ images }) => {
 
         </div>
 
-        <div className='flex w-full justify-around pb-4 '>
+        <div className='flex w-full justify-around sm:gap-5 pb-4 '>
           {categeories.map((item) => {
-
             return (<button
+              onClick={()=>{
+                setCategory(item.name)
+              }}
               key={item.name}
-              className="rounded-full h-12 w-[9rem] shadow-sm   bg-white/10 backdrop-blur-md border  text-sm  hover:bg-[#3B82F6] hover:text-white transition-all duration-300 flex  items-center  justify-center gap-5 px-1"
+              className={` rounded-full h-12 w-[9rem] shadow-sm   bg-white/10 backdrop-blur-md border  text-sm  hover:bg-[#3B82F6] hover:text-white transition-all duration-300 flex  items-center  justify-center gap-5 px-1
+                ${category === item.name
+      ? "bg-blue-500 text-white"
+      : "bg-white text-black"}
+                `}
             >
               <span className='h-8 w-8   rounded-full overflow-hidden'>
                 <img className='h-full object-cover object w-full scale-110 ' src={item.logo} alt="" />

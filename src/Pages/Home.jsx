@@ -9,17 +9,26 @@ const Home = () => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState('Nature')
+  const handleCategory = (newCategory) => {
+    setImages([]);
+    setPage(1);
+    setCategory(newCategory);
 
-
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
 
   useEffect(() => {
     async function getData() {
-      
+
       setLoading(true);
-
-      const data = await dataFetching(page);
-
+      console.log(category, page);
+      const data = await dataFetching(category, page);
+      //  console.log("Category changed:", category);
       setImages((prev) => {
         const merged = [...prev, ...data];
 
@@ -35,26 +44,26 @@ const Home = () => {
     }
 
     getData();
-  }, [page]);
--
+  }, [category, page]);
+  -
 
 
-  useEffect(() => {
+    useEffect(() => {
 
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !loading) {
-        setPage((prev) => prev + 1);
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          setPage((prev) => prev + 1);
+        }
+      });
+
+
+      if (loaderRef.current) {
+        observer.observe(loaderRef.current);
       }
-    });
 
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
-    }
-
-
-    return () => observer.disconnect();
-  }, [loading]);
+      return () => observer.disconnect();
+    }, [loading]);
 
 
 
@@ -62,7 +71,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <ImageGrid images={images} />
+      <ImageGrid images={images} category={category} setCategory={handleCategory} />
 
       <div
         ref={loaderRef}
