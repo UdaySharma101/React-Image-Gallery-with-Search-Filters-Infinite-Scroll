@@ -1,4 +1,3 @@
-import React from 'react'
 import ImageCard from '../Gallery/ImageCard'
 // import { Search, Leaf, Plane, Car, Utensils, PawPrint } from "lucide-react";
 import nature from "../../assets/images/nature.jpg"
@@ -10,7 +9,7 @@ import travel from "../../assets/images/travel.jpg"
 
 
 
-const ImageGrid = ({ images ,category,setCategory}) => {
+const ImageGrid = ({ images, category, setCategory, setSelectedImage }) => {
   const categeories = [
     {
 
@@ -39,6 +38,7 @@ const ImageGrid = ({ images ,category,setCategory}) => {
       name: 'Mountains'
     }
   ]
+  // console.log(images)
   return (
     <>
       <div className="flex flex-col overflow-x-auto shrink-0  whitespace-nowrap items-center justify-center gap-16 px-3">
@@ -52,14 +52,14 @@ const ImageGrid = ({ images ,category,setCategory}) => {
         <div className='flex w-full justify-around sm:gap-5 pb-4 '>
           {categeories.map((item) => {
             return (<button
-              onClick={()=>{
+              onClick={() => {
                 setCategory(item.name)
               }}
               key={item.name}
               className={` rounded-full h-12 w-[9rem] shadow-sm   bg-white/10 backdrop-blur-md border  text-sm  hover:bg-[#3B82F6] hover:text-white transition-all duration-300 flex  items-center  justify-center gap-5 px-1
                 ${category === item.name
-      ? "bg-blue-500 text-white"
-      : "bg-white text-black"}
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black"}
                 `}
             >
               <span className='h-8 w-8   rounded-full overflow-hidden'>
@@ -77,7 +77,12 @@ const ImageGrid = ({ images ,category,setCategory}) => {
         {images.map((image) => (
 
           <div key={image.id} className="mb-5 break-inside-avoid">
-            <ImageCard image={image} />
+            <ImageCard image={image} setSelectedImage={(img) => {
+              console.log("FROM IMAGEGRID:", img);
+              setSelectedImage(img);
+            }} />
+            {/* <ImageCard image={image} setSelectedImage={setSelectedImage} /> */}
+            {/* {console.log(image)} */}
           </div>
 
         ))}

@@ -11,7 +11,7 @@ export const dataFetching = async (category,page) => {
     );
 
     const data = await response.json();
-
+  //  console.log(data.photos)
     return data.photos;
 
   } catch (error) {

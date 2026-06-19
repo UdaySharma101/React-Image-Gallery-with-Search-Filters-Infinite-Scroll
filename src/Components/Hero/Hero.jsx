@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Search, Leaf, Plane, Car, Utensils, PawPrint } from "lucide-react";
+import { Search } from "lucide-react";
 import heroBg from "../../assets/images/hero.jpg"
 import HeroDiv from "./HeroDiv";
 import Marquee from "react-fast-marquee";

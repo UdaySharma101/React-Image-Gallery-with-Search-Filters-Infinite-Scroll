@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Hero from "../Components/Hero/Hero";
 import ImageGrid from "../Components/Gallery/ImageGrid";
 import { dataFetching } from "../api/images";
+import ImageModel from "../Components/Preview/ImageModel";
 
 const Home = () => {
   const loaderRef = useRef(null);
@@ -9,7 +10,8 @@ const Home = () => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState('Nature')
+  const [category, setCategory] = useState('f1')
+  const [selectedImage, setSelectedImage] = useState(null)
   const handleCategory = (newCategory) => {
     setImages([]);
     setPage(1);
@@ -26,7 +28,7 @@ const Home = () => {
     async function getData() {
 
       setLoading(true);
-      console.log(category, page);
+      // console.log(category, page);
       const data = await dataFetching(category, page);
       //  console.log("Category changed:", category);
       setImages((prev) => {
@@ -45,7 +47,7 @@ const Home = () => {
 
     getData();
   }, [category, page]);
-  -
+  
 
 
     useEffect(() => {
@@ -67,12 +69,23 @@ const Home = () => {
 
 
 
-
   return (
     <div>
       <Hero />
-      <ImageGrid images={images} category={category} setCategory={handleCategory} />
+     <ImageGrid
+  images={images}
+  category={category}
+  setCategory={handleCategory}
+  setSelectedImage={setSelectedImage}
+/>
 
+{selectedImage && (
+  <ImageModel
+    image={selectedImage}
+    setSelectedImage={setSelectedImage}
+  />
+)}
+       
       <div
         ref={loaderRef}
         className="flex items-center justify-center h-20 font-bold text-gray-400"
