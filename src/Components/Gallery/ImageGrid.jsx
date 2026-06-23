@@ -6,7 +6,6 @@ import mount from "../../assets/images/mountains.jpg"
 import food from "../../assets/images/food.jpg"
 import animal from "../../assets/images/animals.jpg"
 import travel from "../../assets/images/travel.jpg"
-import Skeleton from '../Skeleton/Skeleton'
 
 
 const ImageGrid = ({ images, category, setCategory, setSelectedImage, saved, setSaved }) => {
