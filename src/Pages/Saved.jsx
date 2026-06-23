@@ -44,7 +44,12 @@ const Saved = () => {
             key={image.id}
             className="mb-5 break-inside-avoid"
           >
-            <ImageCard image={image} />
+            {/* <ImageCard image={image} /> */}
+            <img
+  src={image.src.medium}
+  alt={image.alt}
+  className="w-full"
+/>
             <button
               onClick={() => handleRemove(image.id)}
               className="w-full mt-2 bg-red-500 text-white p-2 rounded"

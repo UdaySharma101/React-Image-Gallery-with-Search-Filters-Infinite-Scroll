@@ -33,16 +33,16 @@ const Home = () => {
 
   useEffect(() => {
     async function getData() {
-// console.log("START LOADING");
 
       setLoading(true);
-      // console.log(category, page);
-      const data = await dataFetching( query || category, page);
-      //  console.log("Category changed:", category);
-      // console.log("DATA RECEIVED");
+      const data = await dataFetching(query || category, page);
+
+      console.log("DATA:", data);
+      console.log("IS ARRAY:", Array.isArray(data));
 
       setImages((prev) => {
-        const merged = [...prev, ...data];
+          const merged = [...prev, ...(Array.isArray(data) ? data : [])];
+
 
         return merged.filter(
           (img, index, arr) =>
@@ -52,7 +52,6 @@ const Home = () => {
       })
 
       setLoading(false);
-// console.log("STOP LOADING");
     }
 
     getData();
@@ -79,31 +78,40 @@ const Home = () => {
 
 
 
-const handleSave = (image) => {
-  setSaved((prev) => {
-    const merged = [...prev, image];
+  const handleSave = (image) => {
+    setSaved((prev) => {
+      const merged = [...prev, image];
 
-    return merged.filter(
-      (img, index, arr) =>
-        index === arr.findIndex((item) => item.id === img.id)
+      return merged.filter(
+        (img, index, arr) =>
+          index === arr.findIndex((item) => item.id === img.id)
+      );
+    });
+  };
+
+  // useEffect(() => {
+  //   const saved = localStorage.getItem("savedImages");
+
+  //   if (saved) {
+  //     setSaved(JSON.parse(saved));
+  //   }
+  // }, []);
+  useEffect(() => {
+    const saved = localStorage.getItem("savedImages");
+
+    if (saved) {
+      const parsed = JSON.parse(saved);
+
+      setSaved(Array.isArray(parsed) ? parsed : []);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "savedImages",
+      JSON.stringify(saved)
     );
-  });
-};
-
-useEffect(() => {
-  const saved = localStorage.getItem("savedImages");
-
-  if (saved) {
-    setSaved(JSON.parse(saved));
-  }
-}, []);
-
-useEffect(() => {
-  localStorage.setItem(
-    "savedImages",
-    JSON.stringify(saved)
-  );
-}, [saved]);
+  }, [saved]);
   return (
     <div>
       <Hero search={search} setSearch={setSearch} image={images} setQuery={setQuery} setPage={setPage} setImages={setImages} />
@@ -115,7 +123,7 @@ useEffect(() => {
         saved={saved}
         setSaved={setSaved}
         handleSave={handleSave}
-        // loading={loading}
+      // loading={loading}
       />
 
       {selectedImage && (
@@ -123,8 +131,8 @@ useEffect(() => {
           image={selectedImage}
           setSelectedImage={setSelectedImage}
           saved={saved}
-        setSaved={setSaved}
-        handleSave={handleSave}
+          setSaved={setSaved}
+          handleSave={handleSave}
         />
       )}
 
