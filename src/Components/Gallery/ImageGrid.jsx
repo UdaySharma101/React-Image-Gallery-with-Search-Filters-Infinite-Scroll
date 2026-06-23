@@ -41,7 +41,7 @@ const ImageGrid = ({ images, category, setCategory, setSelectedImage, saved, set
 
   return (
     <>
-      <div className="flex flex-col overflow-x-auto shrink-0  whitespace-nowrap items-center justify-center gap-16 px-3">
+      <div className="flex flex-col  items-center justify-center gap-16 px-3">
 
         <div className='h-0 flex p-0 m-0 items-center justify-center py-4' >
 
@@ -49,7 +49,7 @@ const ImageGrid = ({ images, category, setCategory, setSelectedImage, saved, set
 
         </div>
 
-        <div className='flex w-full justify-around sm:gap-5 pb-4 '>
+        <div className='flex w-full justify-around sm:gap-5 pb-4 overflow-x-auto shrink-0  whitespace-nowrap '>
           {categeories.map((item) => {
             return (<button
               onClick={() => {
