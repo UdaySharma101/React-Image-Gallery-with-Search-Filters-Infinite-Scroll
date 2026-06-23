@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Search, Menu, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 export const Nav = () => {
     const [open, setOpen] = useState(false)
     let toggle = () => {
@@ -58,7 +59,7 @@ export const Nav = () => {
 
                 <ul className='hidden md:flex items-center justify-end  gap-10'>
                     <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>Categories</li>
-                    <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>Favorites</li>
+                    <Link className='font-semibold cursor-pointer text-gray-600 hover:text-black transition' to='/saved'>Saved</Link>
                     <li className='font-semibold cursor-pointer text-gray-600 hover:text-black transition'>About</li>
                 </ul>
 

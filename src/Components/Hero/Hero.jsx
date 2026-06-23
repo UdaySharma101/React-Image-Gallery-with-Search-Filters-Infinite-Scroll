@@ -4,11 +4,14 @@ import { Search } from "lucide-react";
 import heroBg from "../../assets/images/hero.jpg"
 import HeroDiv from "./HeroDiv";
 import Marquee from "react-fast-marquee";
-const Hero = () => {
+
+const Hero = ({ search, setSearch,setQuery,setPage,setImages }) => {
   const [ani, setAni] = useState(false)
   useEffect(() => {
     setAni(true)
   }, [])
+
+
 
   return (
     <section className="relative min-h-auto  bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${heroBg})` }}>
@@ -50,8 +53,19 @@ const Hero = () => {
             size={20}
           />
 
-          <input type="text" placeholder="Search nature, cars, mountains..."
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e)=>{
+              if(e.key === "Enter"){
+                setQuery(search)
+                setPage(1)
+                setImages([])
+              }
+            }}
+            type="text" placeholder="Search nature, cars, mountains..."
             className="w-full rounded-2xl bg-white/90 backdrop-blur-md px-14 py-4 text-gray-700 shadow-2xl outline-none border border-white/20 focus:ring-2 focus:ring-blue-400" />
+
         </div>
 
 

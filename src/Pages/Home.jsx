@@ -7,11 +7,18 @@ import ImageModel from "../Components/Preview/ImageModel";
 const Home = () => {
   const loaderRef = useRef(null);
 
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([])
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
   const [category, setCategory] = useState('f1')
   const [selectedImage, setSelectedImage] = useState(null)
+  const [search, setSearch] = useState("")
+  const [query, setQuery] = useState("")
+  const [saved, setSaved] = useState([])
+  const filterImg = images.filter((image) => {
+    return (image.alt || "").toLowerCase().includes(search.toLowerCase())
+  })
+
   const handleCategory = (newCategory) => {
     setImages([]);
     setPage(1);
@@ -26,11 +33,14 @@ const Home = () => {
 
   useEffect(() => {
     async function getData() {
+// console.log("START LOADING");
 
       setLoading(true);
       // console.log(category, page);
-      const data = await dataFetching(category, page);
+      const data = await dataFetching( query || category, page);
       //  console.log("Category changed:", category);
+      // console.log("DATA RECEIVED");
+
       setImages((prev) => {
         const merged = [...prev, ...data];
 
@@ -42,50 +52,82 @@ const Home = () => {
       })
 
       setLoading(false);
-
+// console.log("STOP LOADING");
     }
 
     getData();
-  }, [category, page]);
-  
+  }, [query, page]);
 
 
-    useEffect(() => {
 
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !loading) {
-          setPage((prev) => prev + 1);
-        }
-      });
+  useEffect(() => {
 
-
-      if (loaderRef.current) {
-        observer.observe(loaderRef.current);
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !loading) {
+        setPage((prev) => prev + 1);
       }
+    });
 
 
-      return () => observer.disconnect();
-    }, [loading]);
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+
+    return () => observer.disconnect();
+  }, [loading]);
 
 
 
+const handleSave = (image) => {
+  setSaved((prev) => {
+    const merged = [...prev, image];
+
+    return merged.filter(
+      (img, index, arr) =>
+        index === arr.findIndex((item) => item.id === img.id)
+    );
+  });
+};
+
+useEffect(() => {
+  const saved = localStorage.getItem("savedImages");
+
+  if (saved) {
+    setSaved(JSON.parse(saved));
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem(
+    "savedImages",
+    JSON.stringify(saved)
+  );
+}, [saved]);
   return (
     <div>
-      <Hero />
-     <ImageGrid
-  images={images}
-  category={category}
-  setCategory={handleCategory}
-  setSelectedImage={setSelectedImage}
-/>
+      <Hero search={search} setSearch={setSearch} image={images} setQuery={setQuery} setPage={setPage} setImages={setImages} />
+      <ImageGrid
+        images={filterImg}
+        category={category}
+        setCategory={handleCategory}
+        setSelectedImage={setSelectedImage}
+        saved={saved}
+        setSaved={setSaved}
+        handleSave={handleSave}
+        // loading={loading}
+      />
 
-{selectedImage && (
-  <ImageModel
-    image={selectedImage}
-    setSelectedImage={setSelectedImage}
-  />
-)}
-       
+      {selectedImage && (
+        <ImageModel
+          image={selectedImage}
+          setSelectedImage={setSelectedImage}
+          saved={saved}
+        setSaved={setSaved}
+        handleSave={handleSave}
+        />
+      )}
+
       <div
         ref={loaderRef}
         className="flex items-center justify-center h-20 font-bold text-gray-400"

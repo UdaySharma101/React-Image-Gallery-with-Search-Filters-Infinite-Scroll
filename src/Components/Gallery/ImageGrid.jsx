@@ -6,10 +6,10 @@ import mount from "../../assets/images/mountains.jpg"
 import food from "../../assets/images/food.jpg"
 import animal from "../../assets/images/animals.jpg"
 import travel from "../../assets/images/travel.jpg"
+import Skeleton from '../Skeleton/Skeleton'
 
 
-
-const ImageGrid = ({ images, category, setCategory, setSelectedImage }) => {
+const ImageGrid = ({ images, category, setCategory, setSelectedImage, saved, setSaved }) => {
   const categeories = [
     {
 
@@ -38,7 +38,8 @@ const ImageGrid = ({ images, category, setCategory, setSelectedImage }) => {
       name: 'Mountains'
     }
   ]
-  // console.log(images)
+
+
   return (
     <>
       <div className="flex flex-col overflow-x-auto shrink-0  whitespace-nowrap items-center justify-center gap-16 px-3">
@@ -77,12 +78,10 @@ const ImageGrid = ({ images, category, setCategory, setSelectedImage }) => {
         {images.map((image) => (
 
           <div key={image.id} className="mb-5 break-inside-avoid">
-            <ImageCard image={image} setSelectedImage={(img) => {
-              console.log("FROM IMAGEGRID:", img);
+            <ImageCard saved={saved} setSaved={setSaved} image={image} setSelectedImage={(img) => {
               setSelectedImage(img);
             }} />
-            {/* <ImageCard image={image} setSelectedImage={setSelectedImage} /> */}
-            {/* {console.log(image)} */}
+            
           </div>
 
         ))}
